@@ -3,18 +3,19 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 
 import { gradeRouter } from './routes/gradeRouter.js';
-import { logger } from './config/logger.js';
+// import { logger } from './config/logger.js';
 import { db } from './models/index.js';
 
 (async () => {
   try {
+    console.log(db.url)
     await db.mongoose.connect(db.url, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
-    logger.info('Conectado ao banco de dados');
+    // logger.info('Conectado ao banco de dados');
   } catch (error) {
-    logger.error(`Erro ao conectar no banco de dados! ${error}`);
+    // logger.error(`Erro ao conectar no banco de dados! ${error}`);
 
     process.exit();
   }
@@ -27,7 +28,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(
   cors({
-    origin: 'http://localhost:8080',
+    origin: 'https://desafio4-app.herokuapp.com/',
   })
 );
 
@@ -38,5 +39,5 @@ app.get('/', (req, res) => {
 });
 
 app.listen(process.env.PORT || 8081, () => {
-  logger.info(`Servidor em execucao na porta ${process.env.PORT}`);
+  // logger.info(`Servidor em execucao na porta ${process.env.PORT}`);
 });
